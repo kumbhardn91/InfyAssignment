@@ -37,10 +37,10 @@ class CountryViewModel(application: Application) : AndroidViewModel(application)
 
             override fun onComplete() {
                 progressDialog?.value = false
-                countryDataList.value!!.let { e ->
+               /* countryDataList.value!!.let { e ->
                     dataRepository.insertCountryData(e, context)
                 }
-                countryUpdatedData = dataRepository.getCountryData(context)
+                countryUpdatedData = dataRepository.getCountryData(context)*/
                 Log.i("onComplete***", "onComplete")
             }
 
@@ -51,6 +51,7 @@ class CountryViewModel(application: Application) : AndroidViewModel(application)
 
             override fun onNext(t: CountryModel) {
                 // countryLiveData.value = t
+                dataRepository.clearCountryData()
                 countryDataList.value = t.rows
                 countryDataList.value!!.let { e ->
                     dataRepository.insertCountryData(e, context)

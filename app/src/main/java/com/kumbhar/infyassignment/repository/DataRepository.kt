@@ -32,4 +32,11 @@ class DataRepository {
         return db.countryDAO().getCountryData()
     }
 
+    fun clearCountryData()
+    {
+        GlobalScope.launch {
+            db.countryDAO().deleteCountryData()
+        }
+    }
+
 }

@@ -22,4 +22,7 @@ interface CountryDAO {
     @Query("SELECT EXISTS(SELECT * FROM CountryData)")
     fun isDataExists(): Boolean
 
+    @Query("DELETE FROM CountryData")
+    fun deleteCountryData()
+
 }

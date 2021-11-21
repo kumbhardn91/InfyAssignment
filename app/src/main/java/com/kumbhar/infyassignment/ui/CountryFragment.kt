@@ -46,28 +46,31 @@ class CountryFragment : Fragment() {
     }
 
     private fun observeUpdatedData() {
+        fragmentCountryBinding.swipeContainer.isRefreshing = false
         if (checkForInternet(requireActivity())) {
-
-            countryViewModel.countryUpdatedData.observe(requireActivity(), {
-                if (it != null) {
-
-                    if (fragmentCountryBinding.swipeContainer.isRefreshing) {
-                        fragmentCountryBinding.swipeContainer.isRefreshing = false
-                    }
-                    it.let {
-                        val countryData = it
-                        updateCountryAdapter(countryData)
-                    }
-                } else {
-                    showToast(activity, getString(R.string.no_data))
-                }
-            })
-
+            getUpdatedData()
         } else {
-            fragmentCountryBinding.swipeContainer.isRefreshing = false
+            getUpdatedData()
             showToast(activity, getString(R.string.no_internet))
         }
+    }
 
+    private fun getUpdatedData() {
+
+        countryViewModel.countryUpdatedData.observe(requireActivity(), {
+            if (it != null) {
+
+                if (fragmentCountryBinding.swipeContainer.isRefreshing) {
+                    fragmentCountryBinding.swipeContainer.isRefreshing = false
+                }
+                it.let {
+                    val countryData = it
+                    updateCountryAdapter(countryData)
+                }
+            } else {
+                showToast(activity, getString(R.string.no_data))
+            }
+        })
     }
 
     private fun updateCountryAdapter(countryData: List<DataRows>) {

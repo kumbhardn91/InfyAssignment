@@ -9,7 +9,7 @@ import androidx.room.PrimaryKey
 data class DataRows(
 
     @PrimaryKey(autoGenerate = true)
-    var itemId: Int? = 0,
+    var itemId: Int = 0,
 
     @ColumnInfo(name = "title")
     var title: String? = null,
