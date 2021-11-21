@@ -45,6 +45,7 @@ class CountryFragment : Fragment() {
 
     }
 
+
     private fun observeUpdatedData() {
         fragmentCountryBinding.swipeContainer.isRefreshing = false
         if (checkForInternet(requireActivity())) {
@@ -55,6 +56,7 @@ class CountryFragment : Fragment() {
         }
     }
 
+    // Observe updated data from  database
     private fun getUpdatedData() {
 
         countryViewModel.countryUpdatedData.observe(requireActivity(), {
@@ -73,6 +75,7 @@ class CountryFragment : Fragment() {
         })
     }
 
+    // Update data with adapter
     private fun updateCountryAdapter(countryData: List<DataRows>) {
 
         val recyclerView = fragmentCountryBinding.recyclerView
@@ -82,7 +85,7 @@ class CountryFragment : Fragment() {
         recyclerView.adapter = adapter
     }
 
-
+    // Call server api method
     private fun callCountryApi() {
         countryViewModel.getCountryData()
     }
@@ -97,8 +100,6 @@ class CountryFragment : Fragment() {
 
         customeProgressDialog = CustomeProgressDialog(activity)
         countryViewModel = ViewModelProvider(this).get(CountryViewModel::class.java)
-        // fragmentCountryBinding = FragmentCountryBinding.inflate(layoutInflater)
-        //setContentView(binding.root)
         manager = LinearLayoutManager(activity)
     }
 
@@ -117,6 +118,7 @@ class CountryFragment : Fragment() {
         )
     }
 
+    //  Show progress bar
     private fun observeProgressDialog() {
         countryViewModel.progressDialog?.observe(this, {
             if (it!!) customeProgressDialog.show() else customeProgressDialog.dismiss()

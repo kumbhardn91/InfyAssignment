@@ -15,11 +15,13 @@ class DataRepository {
 
     private lateinit var db: CountryDatabase
 
+    // Call api and get server data
     fun getCountryInfo(): Observable<CountryModel> {
         val retroInstance = RetroInstance.getRetroInstance().create(RetroService::class.java)
         return retroInstance.getCountryInfoApi()
     }
 
+    // Insert data into room database
     fun insertCountryData(countryDataList: List<DataRows>, context: Context) {
         db = CountryDatabase.getDatabase(context)
         GlobalScope.launch {
@@ -27,13 +29,14 @@ class DataRepository {
         }
     }
 
+    // Get data from room database
     fun getCountryData(context: Context): LiveData<List<DataRows>> {
         db = CountryDatabase.getDatabase(context)
         return db.countryDAO().getCountryData()
     }
 
-    fun clearCountryData()
-    {
+    // Clear all data
+    fun clearCountryData() {
         GlobalScope.launch {
             db.countryDAO().deleteCountryData()
         }

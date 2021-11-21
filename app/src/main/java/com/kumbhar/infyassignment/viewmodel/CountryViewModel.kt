@@ -21,10 +21,10 @@ class CountryViewModel(application: Application) : AndroidViewModel(application)
     var progressDialog: SingleLiveEvent<Boolean>? = SingleLiveEvent()
     var countryDataList = MutableLiveData<List<DataRows>>()
 
-    //var countryDataList = MutableLiveData<CountryModel>()
     private var dataRepository = DataRepository()
     var countryUpdatedData = dataRepository.getCountryData(context)
 
+    // get data from repository
     fun getCountryData() {
         dataRepository.getCountryInfo()
             .subscribeOn(Schedulers.io())
@@ -32,15 +32,12 @@ class CountryViewModel(application: Application) : AndroidViewModel(application)
             .subscribe(getDataListObserverRx())
     }
 
+    // Observe data list with RxJava
     private fun getDataListObserverRx(): Observer<CountryModel> {
         return object : Observer<CountryModel> {
 
             override fun onComplete() {
                 progressDialog?.value = false
-               /* countryDataList.value!!.let { e ->
-                    dataRepository.insertCountryData(e, context)
-                }
-                countryUpdatedData = dataRepository.getCountryData(context)*/
                 Log.i("onComplete***", "onComplete")
             }
 
