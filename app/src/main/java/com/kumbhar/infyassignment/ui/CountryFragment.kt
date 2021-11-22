@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.kumbhar.infyassignment.utils.CustomeProgressDialog
 import com.kumbhar.infyassignment.utils.checkForInternet
 import com.kumbhar.infyassignment.utils.showToast
 import com.kumbhar.infyassignment.R
@@ -25,8 +25,6 @@ class CountryFragment : Fragment() {
     private lateinit var fragmentCountryBinding: FragmentCountryBinding
     private lateinit var countryViewModel: CountryViewModel
     private lateinit var manager: RecyclerView.LayoutManager
-    private lateinit var customeProgressDialog: CustomeProgressDialog
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,18 +35,29 @@ class CountryFragment : Fragment() {
             DataBindingUtil.inflate(inflater, R.layout.fragment_country, container, false)
         (activity as AppCompatActivity).supportActionBar?.title = "Country Data"
         initialization()
-        callCountryApi()
-        observeUpdatedData()
+        checkLocalData()
+        //   callCountryApi()
+        // observeUpdatedData()
         swipeToRefresh()
-        observeProgressDialog()
         return fragmentCountryBinding.root
 
+    }
+
+    private fun checkLocalData() {
+
+        if (countryViewModel.isDataExist) {
+            observeUpdatedData()
+        } else {
+            callCountryApi()
+            observeUpdatedData()
+        }
     }
 
 
     private fun observeUpdatedData() {
         fragmentCountryBinding.swipeContainer.isRefreshing = false
         if (checkForInternet(requireActivity())) {
+
             getUpdatedData()
         } else {
             getUpdatedData()
@@ -98,7 +107,6 @@ class CountryFragment : Fragment() {
 
     private fun initialization() {
 
-        customeProgressDialog = CustomeProgressDialog(activity)
         countryViewModel = ViewModelProvider(this).get(CountryViewModel::class.java)
         manager = LinearLayoutManager(activity)
     }
@@ -106,7 +114,7 @@ class CountryFragment : Fragment() {
     private fun swipeToRefresh() {
 
         fragmentCountryBinding.swipeContainer.setOnRefreshListener {
-            callCountryApi()
+            //  callCountryApi()
             observeUpdatedData()
         }
         // Configure the refreshing colors
@@ -116,13 +124,5 @@ class CountryFragment : Fragment() {
             android.R.color.holo_orange_light,
             android.R.color.holo_red_light
         )
-    }
-
-    //  Show progress bar
-    private fun observeProgressDialog() {
-        countryViewModel.progressDialog?.observe(this, {
-            if (it!!) customeProgressDialog.show() else customeProgressDialog.dismiss()
-        })
-
     }
 }

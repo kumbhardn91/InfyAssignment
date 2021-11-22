@@ -13,7 +13,6 @@ class MainActivity : AppCompatActivity() {
 
         activityMainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(activityMainBinding.root)
-        title = "Home"
         supportFragmentManager.beginTransaction().apply {
             replace(activityMainBinding.activityFrame.id, CountryFragment.newInstance())
             addToBackStack(null)

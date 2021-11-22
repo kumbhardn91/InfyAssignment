@@ -13,9 +13,6 @@ interface CountryDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addCountryData(countryData: List<DataRows>)
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun addCountryItem(countryItem: DataRows)
-
     @Query("SELECT * FROM CountryData")
     fun getCountryData(): LiveData<List<DataRows>>
 

@@ -4,8 +4,8 @@ import android.annotation.SuppressLint
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.kumbhar.infyassignment.utils.SingleLiveEvent
 import com.kumbhar.infyassignment.model.CountryModel
 import com.kumbhar.infyassignment.model.DataRows
 import com.kumbhar.infyassignment.repository.DataRepository
@@ -18,11 +18,11 @@ class CountryViewModel(application: Application) : AndroidViewModel(application)
 
     @SuppressLint("StaticFieldLeak")
     private val context = getApplication<Application>().applicationContext
-    var progressDialog: SingleLiveEvent<Boolean>? = SingleLiveEvent()
     var countryDataList = MutableLiveData<List<DataRows>>()
-
     private var dataRepository = DataRepository()
     var countryUpdatedData = dataRepository.getCountryData(context)
+   // lateinit var isDataExist: LiveData<Boolean>
+    var isDataExist= dataRepository.checkDataExist(context)
 
     // get data from repository
     fun getCountryData() {
@@ -36,19 +36,13 @@ class CountryViewModel(application: Application) : AndroidViewModel(application)
     private fun getDataListObserverRx(): Observer<CountryModel> {
         return object : Observer<CountryModel> {
 
-            override fun onComplete() {
-                progressDialog?.value = false
-                Log.i("onComplete***", "onComplete")
-            }
+            override fun onComplete() {}
 
-            override fun onError(e: Throwable) {
-                progressDialog?.value = false
-                Log.i("onError***", e.toString())
-            }
+            override fun onError(e: Throwable) {}
 
             override fun onNext(t: CountryModel) {
                 // countryLiveData.value = t
-                dataRepository.clearCountryData()
+                dataRepository.clearCountryData(context)
                 countryDataList.value = t.rows
                 countryDataList.value!!.let { e ->
                     dataRepository.insertCountryData(e, context)
@@ -56,11 +50,11 @@ class CountryViewModel(application: Application) : AndroidViewModel(application)
                 Log.i("onNext***", t.toString())
             }
 
-            override fun onSubscribe(d: Disposable) {
-                Log.i("onSubscribe***", "onSubscribe")
-                progressDialog?.value = true
-            }
+            override fun onSubscribe(d: Disposable) {}
         }
     }
+    /* fun checkLocalData(){
+        isDataExist= dataRepository.checkDataExist()
+     }*/
 
 }
