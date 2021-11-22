@@ -110,7 +110,7 @@ class CountryFragment : Fragment() {
     private fun swipeToRefresh() {
 
         fragmentCountryBinding.swipeContainer.setOnRefreshListener {
-            //  callCountryApi()
+            callCountryApi()
             observeUpdatedData()
         }
         // Configure the refreshing colors
