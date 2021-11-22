@@ -48,7 +48,7 @@ class DataRepository {
         var isDataExist = false
         GlobalScope.launch {
             db = CountryDatabase.getDatabase(context)
-            isDataExist = db.countryDAO().isDataExists() ?: false
+            isDataExist = db.countryDAO().isDataExists()
         }
         return isDataExist
     }

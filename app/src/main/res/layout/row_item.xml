@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -8,7 +9,7 @@
             type="com.kumbhar.infyassignment.model.DataRows" />
     </data>
 
-    <androidx.cardview.widget.CardView xmlns:app="http://schemas.android.com/apk/res-auto"
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/size_2"
@@ -38,31 +39,37 @@
 
             <TextView
                 android:id="@+id/tvDesc"
-                android:layout_width="200dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:paddingEnd="@dimen/size_2"
                 android:text="@{ListDataItem.description}"
                 android:textSize="@dimen/size_14"
                 android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/imgProfile"
+                app:layout_constraintHorizontal_bias="0.6"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
 
             <ImageView
                 android:id="@+id/imgProfile"
-                android:layout_width="120dp"
+                android:layout_width="118dp"
                 android:layout_height="100dp"
                 android:contentDescription="@string/todo"
                 app:image="@{ListDataItem.imageHref}"
-                app:layout_constraintLeft_toRightOf="@+id/tvDesc"
-                app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+                app:layout_constraintEnd_toStartOf="@+id/imgArrow"
+                app:layout_constraintHorizontal_bias="0.4"
+                app:layout_constraintStart_toEndOf="@+id/tvDesc"
+                app:layout_constraintTop_toTopOf="@+id/tvDesc" />
 
             <ImageView
                 android:id="@+id/imgArrow"
-                android:layout_width="wrap_content"
+                android:layout_width="40dp"
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/todo"
                 android:src="@drawable/arrow_right"
-                app:layout_constraintLeft_toRightOf="@+id/imgProfile"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/imgProfile"
                 app:layout_constraintTop_toBottomOf="@id/tvTitle" />
 
 
