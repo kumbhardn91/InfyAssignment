@@ -42,7 +42,7 @@ class DataRepository {
             db.countryDAO().deleteCountryData()
         }
     }
-
+    // Check local data
     fun checkDataExist(context: Context): Boolean {
         var isDataExist = false
         GlobalScope.launch {

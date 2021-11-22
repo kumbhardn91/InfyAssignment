@@ -36,15 +36,12 @@ class CountryFragment : Fragment() {
         (activity as AppCompatActivity).supportActionBar?.title = "Country Data"
         initialization()
         checkLocalData()
-        //   callCountryApi()
-        // observeUpdatedData()
         swipeToRefresh()
         return fragmentCountryBinding.root
 
     }
 
     private fun checkLocalData() {
-
         if (countryViewModel.isDataExist) {
             observeUpdatedData()
         } else {
@@ -57,7 +54,6 @@ class CountryFragment : Fragment() {
     private fun observeUpdatedData() {
         fragmentCountryBinding.swipeContainer.isRefreshing = false
         if (checkForInternet(requireActivity())) {
-
             getUpdatedData()
         } else {
             getUpdatedData()

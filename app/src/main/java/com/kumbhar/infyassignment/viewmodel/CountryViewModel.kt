@@ -21,8 +21,7 @@ class CountryViewModel(application: Application) : AndroidViewModel(application)
     var countryDataList = MutableLiveData<List<DataRows>>()
     private var dataRepository = DataRepository()
     var countryUpdatedData = dataRepository.getCountryData(context)
-   // lateinit var isDataExist: LiveData<Boolean>
-    var isDataExist= dataRepository.checkDataExist(context)
+    var isDataExist = dataRepository.checkDataExist(context)
 
     // get data from repository
     fun getCountryData() {
@@ -53,8 +52,4 @@ class CountryViewModel(application: Application) : AndroidViewModel(application)
             override fun onSubscribe(d: Disposable) {}
         }
     }
-    /* fun checkLocalData(){
-        isDataExist= dataRepository.checkDataExist()
-     }*/
-
 }
