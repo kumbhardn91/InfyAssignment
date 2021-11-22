@@ -19,15 +19,14 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:padding="@dimen/size_10">
 
             <TextView
                 android:id="@+id/tvTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/size_5"
                 android:paddingTop="@dimen/size_5"
-                android:paddingRight="@dimen/size_5"
                 android:text="@{ListDataItem.title}"
                 android:textColor="@color/sky_blue"
                 android:textSize="@dimen/size_18"
@@ -36,47 +35,35 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <LinearLayout
-                android:id="@+id/llDescImg"
-                android:layout_width="match_parent"
+
+            <TextView
+                android:id="@+id/tvDesc"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingLeft="@dimen/size_5"
-                android:paddingRight="@dimen/size_5"
-                android:paddingBottom="@dimen/size_10"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/tvTitle"
-                app:layout_constraintTop_toBottomOf="@+id/tvTitle">
+                android:paddingEnd="@dimen/size_2"
+                android:text="@{ListDataItem.description}"
+                android:textSize="@dimen/size_14"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
 
-                <TextView
-                    android:paddingRight="@dimen/size_2"
-                    android:id="@+id/tvDesc"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.1"
-                    android:text="@{ListDataItem.description}"
-                    android:textSize="@dimen/size_14"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+            <ImageView
+                android:id="@+id/imgProfile"
+                android:layout_width="120dp"
+                android:layout_height="100dp"
+                android:contentDescription="@string/todo"
+                app:image="@{ListDataItem.imageHref}"
+                app:layout_constraintLeft_toRightOf="@+id/tvDesc"
+                app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
 
-                <ImageView
-                    android:id="@+id/imgProfile"
-                    android:layout_width="150dp"
-                    android:layout_height="100dp"
-                    android:contentDescription="@string/todo"
-                    app:image="@{ListDataItem.imageHref}"
-                    app:layout_constraintLeft_toRightOf="@+id/tvDesc"
-                    app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
-
-                <ImageView
-                    android:id="@+id/imgArrow"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="@string/todo"
-                    android:src="@drawable/arrow_right" />
-
-            </LinearLayout>
+            <ImageView
+                android:id="@+id/imgArrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/todo"
+                android:src="@drawable/arrow_right"
+                app:layout_constraintLeft_toRightOf="@+id/imgProfile"
+                app:layout_constraintTop_toBottomOf="@id/tvTitle" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

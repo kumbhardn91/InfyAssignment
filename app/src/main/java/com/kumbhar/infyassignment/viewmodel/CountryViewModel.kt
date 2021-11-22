@@ -40,8 +40,6 @@ class CountryViewModel(application: Application) : AndroidViewModel(application)
             override fun onError(e: Throwable) {}
 
             override fun onNext(t: CountryModel) {
-                // countryLiveData.value = t
-                dataRepository.clearCountryData(context)
                 countryDataList.value = t.rows
                 countryDataList.value!!.let { e ->
                     dataRepository.insertCountryData(e, context)
@@ -49,7 +47,9 @@ class CountryViewModel(application: Application) : AndroidViewModel(application)
                 Log.i("onNext***", t.toString())
             }
 
-            override fun onSubscribe(d: Disposable) {}
+            override fun onSubscribe(d: Disposable) {
+                dataRepository.clearCountryData(context)
+            }
         }
     }
 }
