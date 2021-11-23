@@ -25,6 +25,7 @@ class DataRepository {
     fun insertCountryData(countryDataList: List<DataRows>, context: Context) {
         db = CountryDatabase.getDatabase(context)
         GlobalScope.launch {
+            db.countryDAO().deleteCountryData()
             db.countryDAO().addCountryData(countryDataList)
         }
     }
@@ -33,14 +34,6 @@ class DataRepository {
     fun getCountryData(context: Context): LiveData<List<DataRows>> {
         db = CountryDatabase.getDatabase(context)
         return db.countryDAO().getCountryData()
-    }
-
-    // Clear all data
-    fun clearCountryData(context: Context) {
-        GlobalScope.launch {
-            db = CountryDatabase.getDatabase(context)
-            db.countryDAO().deleteCountryData()
-        }
     }
 
     // Check local data

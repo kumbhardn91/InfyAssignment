@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,7 +17,6 @@ import com.kumbhar.infyassignment.adapter.CountryModelAdapter
 import com.kumbhar.infyassignment.databinding.FragmentCountryBinding
 import com.kumbhar.infyassignment.model.DataRows
 import com.kumbhar.infyassignment.viewmodel.CountryViewModel
-
 
 class CountryFragment : Fragment() {
 
@@ -50,7 +48,6 @@ class CountryFragment : Fragment() {
         }
     }
 
-
     private fun observeUpdatedData() {
         fragmentCountryBinding.swipeContainer.isRefreshing = false
         if (checkForInternet(requireActivity())) {
@@ -66,7 +63,6 @@ class CountryFragment : Fragment() {
 
         countryViewModel.countryUpdatedData.observe(requireActivity(), {
             if (it != null) {
-
                 if (fragmentCountryBinding.swipeContainer.isRefreshing) {
                     fragmentCountryBinding.swipeContainer.isRefreshing = false
                 }
@@ -82,7 +78,6 @@ class CountryFragment : Fragment() {
 
     // Update data with adapter
     private fun updateCountryAdapter(countryData: List<DataRows>) {
-
         val recyclerView = fragmentCountryBinding.recyclerView
         val layoutManager = LinearLayoutManager(activity)
         recyclerView.layoutManager = layoutManager
@@ -102,13 +97,11 @@ class CountryFragment : Fragment() {
     }
 
     private fun initialization() {
-
         countryViewModel = ViewModelProvider(this).get(CountryViewModel::class.java)
         manager = LinearLayoutManager(activity)
     }
 
     private fun swipeToRefresh() {
-
         fragmentCountryBinding.swipeContainer.setOnRefreshListener {
             callCountryApi()
             observeUpdatedData()

@@ -2,9 +2,7 @@ package com.kumbhar.infyassignment.viewmodel
 
 import android.annotation.SuppressLint
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.kumbhar.infyassignment.model.CountryModel
 import com.kumbhar.infyassignment.model.DataRows
@@ -40,12 +38,10 @@ class CountryViewModel(application: Application) : AndroidViewModel(application)
             override fun onError(e: Throwable) {}
 
             override fun onNext(t: CountryModel) {
-                dataRepository.clearCountryData(context)
                 countryDataList.value = t.rows
                 countryDataList.value!!.let { e ->
                     dataRepository.insertCountryData(e, context)
                 }
-                Log.i("onNext***", t.toString())
             }
 
             override fun onSubscribe(d: Disposable) {}

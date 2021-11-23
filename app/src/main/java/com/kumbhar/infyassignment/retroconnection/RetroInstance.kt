@@ -8,12 +8,12 @@ class RetroInstance {
 
     companion object {
 
-        private const val baseURL = "https://dl.dropboxusercontent.com/s/2iodh4vg0eortkl/"
+        private const val BASE_URL = "https://dl.dropboxusercontent.com/s/2iodh4vg0eortkl/"
 
         fun getRetroInstance(): Retrofit {
 
             return Retrofit.Builder()
-                .baseUrl(baseURL)
+                .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build()
