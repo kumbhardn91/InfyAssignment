@@ -85,9 +85,15 @@ class CountryFragment : Fragment() {
         recyclerView.adapter = adapter
     }
 
-    // Call server api method
+    // Call server api method or local data
     private fun callCountryApi() {
-        countryViewModel.getCountryData()
+        if (checkForInternet(requireActivity())) {
+            countryViewModel.getCountryData()
+        } else {
+            getUpdatedData()
+            fragmentCountryBinding.swipeContainer.isRefreshing = false
+            showToast(activity, getString(R.string.no_internet))
+        }
     }
 
     companion object {
@@ -104,7 +110,6 @@ class CountryFragment : Fragment() {
     private fun swipeToRefresh() {
         fragmentCountryBinding.swipeContainer.setOnRefreshListener {
             callCountryApi()
-            observeUpdatedData()
         }
         // Configure the refreshing colors
         fragmentCountryBinding.swipeContainer.setColorSchemeResources(
