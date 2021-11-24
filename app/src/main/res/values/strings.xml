@@ -4,4 +4,5 @@
     <string name="todo">TODO</string>
     <string name="no_data">No data</string>
     <string name="no_internet">No internet</string>
+    <string name="country_data">Country Data</string>
 </resources>

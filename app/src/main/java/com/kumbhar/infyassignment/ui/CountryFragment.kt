@@ -31,7 +31,7 @@ class CountryFragment : Fragment() {
 
         fragmentCountryBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_country, container, false)
-        (activity as AppCompatActivity).supportActionBar?.title = "Country Data"
+        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.country_data)
         initialization()
         checkLocalData()
         swipeToRefresh()

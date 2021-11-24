@@ -39,7 +39,7 @@ class CountryViewModel(application: Application) : AndroidViewModel(application)
 
             override fun onNext(t: CountryModel) {
                 countryDataList.value = t.rows
-                countryDataList.value!!.let { e ->
+                countryDataList.value?.let { e ->
                     dataRepository.insertCountryData(e, context)
                 }
             }
