@@ -33,33 +33,24 @@ class CountryFragment : Fragment() {
             DataBindingUtil.inflate(inflater, R.layout.fragment_country, container, false)
         (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.country_data)
         initialization()
-        checkLocalData()
+        getCountryData()
         swipeToRefresh()
         return fragmentCountryBinding.root
-
     }
 
-    private fun checkLocalData() {
-        if (countryViewModel.isDataExist) {
-            observeUpdatedData()
-        } else {
-            callCountryApi()
-            observeUpdatedData()
-        }
-    }
-
-    private fun observeUpdatedData() {
-        fragmentCountryBinding.swipeContainer.isRefreshing = false
+    // Get country data
+    private fun getCountryData() {
         if (checkForInternet(requireActivity())) {
-            getUpdatedData()
+            if (!countryViewModel.isDataExist)
+                countryViewModel.getCountryData()
         } else {
-            getUpdatedData()
             showToast(activity, getString(R.string.no_internet))
         }
+        observeCountryData()
     }
 
     // Observe updated data from  database
-    private fun getUpdatedData() {
+    private fun observeCountryData() {
 
         countryViewModel.countryUpdatedData.observe(requireActivity(), {
             if (it != null) {
@@ -85,12 +76,12 @@ class CountryFragment : Fragment() {
         recyclerView.adapter = adapter
     }
 
-    // Call server api method or local data
-    private fun callCountryApi() {
+    // Refresh country data from api or local
+    private fun refreshCountryData() {
         if (checkForInternet(requireActivity())) {
             countryViewModel.getCountryData()
         } else {
-            getUpdatedData()
+            observeCountryData()
             fragmentCountryBinding.swipeContainer.isRefreshing = false
             showToast(activity, getString(R.string.no_internet))
         }
@@ -109,7 +100,7 @@ class CountryFragment : Fragment() {
 
     private fun swipeToRefresh() {
         fragmentCountryBinding.swipeContainer.setOnRefreshListener {
-            callCountryApi()
+            refreshCountryData()
         }
         // Configure the refreshing colors
         fragmentCountryBinding.swipeContainer.setColorSchemeResources(
