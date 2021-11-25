@@ -88,4 +88,7 @@ dependencies {
     implementation "org.jetbrains.anko:anko:0.10.8"
     //SwipeRefreshLayout
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+
+    debugImplementation 'androidx.test:core-ktx:1.4.0'
+    debugImplementation "androidx.fragment:fragment-testing:1.4.0"
 }
