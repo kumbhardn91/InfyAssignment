@@ -16,9 +16,6 @@ interface CountryDAO {
     @Query("SELECT * FROM CountryData")
     fun getCountryData(): LiveData<List<DataRows>>
 
-    @Query("SELECT * FROM CountryData")
-    fun getCountryListData(): List<DataRows>
-
     @Query("SELECT EXISTS(SELECT * FROM CountryData)")
     fun isDataExists(): Boolean
 

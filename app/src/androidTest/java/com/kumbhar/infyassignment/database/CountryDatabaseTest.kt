@@ -6,14 +6,11 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.kumbhar.infyassignment.model.DataRows
 import junit.framework.TestCase
-import org.junit.After
-import org.junit.Assert
-import org.junit.Before
-import org.junit.Test
+import org.junit.*
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
-class CountryDatabaseTest: TestCase(){
+class CountryDatabaseTest : TestCase() {
 
     private lateinit var db: CountryDatabase
     private lateinit var dao: CountryDAO
@@ -31,21 +28,22 @@ class CountryDatabaseTest: TestCase(){
     )
 
     @Before
-    public override fun setUp(){
+    public override fun setUp() {
         val context = ApplicationProvider.getApplicationContext<Context>()
         db = Room.inMemoryDatabaseBuilder(context, CountryDatabase::class.java).build()
         dao = db.countryDAO()
     }
 
     @After
-    fun closeDb(){
+    fun closeDb() {
         db.close()
     }
 
     @Test
-    fun writeAndReadCountry(){
+    fun writeAndReadCountry() {
         dao.addCountryData(countryModel)
         val isDataExist = dao.isDataExists()
-        Assert.assertEquals(isDataExist,true)
+        Assert.assertEquals(isDataExist, true)
     }
+
 }
