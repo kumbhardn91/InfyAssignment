@@ -91,4 +91,8 @@ dependencies {
 
     debugImplementation 'androidx.test:core-ktx:1.4.0'
     debugImplementation "androidx.fragment:fragment-testing:1.4.0"
+    // Test helpers for LiveData
+    testImplementation "android.arch.core:core-testing:1.1.1"
+    // Test helpers for LiveData
+    androidTestImplementation "android.arch.core:core-testing:1.1.1"
 }
